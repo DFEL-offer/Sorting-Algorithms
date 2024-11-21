@@ -1,0 +1,62 @@
+/*
+一.时间复杂度
+    1.最坏情况:n^2(每次都需要比较和交换，遍历所有元素)
+    2.最好情况:n(如果数组已经排序，内层循环中不会发生交换，算法会提前终止)
+    3.平均情况:n^2(比较次数和最坏情况类似，但交换次数较少)
+二.空间复杂度
+    1.空间复杂度为常数级(1)
+    原因:不需要额外的数组，只在原数组上进行操作。
+二.优点：
+    1.实现简单，适合初学者学习排序算法。
+    2.对于小规模数据或部分有序的数据表现尚可。
+    3.稳定排序算法（相等的元素不会交换位置）。
+三.缺点：
+    1.对于大规模数据，效率较低，时间复杂度高。
+    2.不适合对性能要求高的场景。
+
+*/
+#include <stdio.h>
+
+void bubbleSort(int *arr, int n);//冒泡排序
+void printArr(int *arr, int n);//输出数组
+
+int main()
+{
+    int arr[] = { 5,4,6,1,2,7,3,9,8 };
+    int arrLen = sizeof(arr) / sizeof(arr[0]);
+    printArr(arr, arrLen);
+    bubbleSort(arr, arrLen);
+    printArr(arr, arrLen);
+    return 0;
+}
+
+void bubbleSort(int *arr, int n)
+{
+    int i, j;//数组指针
+    for(i = 1 ; i < n; i++)//外层循环,控制循环排序次数
+    {
+        int flag = 1;//作为是否交换的记号,空间换时间的行为,避免多余的遍历
+        for(j = 0; j < n - 1; j++)//两两对比
+        {
+            if(arr[j] > arr[j + 1])//交换
+            {
+                int tmp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = tmp;
+                flag = 0;
+            }
+        }
+        if(flag)//没有发生交换,flag没有被赋值为0,数组已有序,跳出循环
+            break;
+    }
+}
+void printArr(int *arr, int n)
+{
+    int i;
+    for(i = 0; i < n; i++)
+        printf("%d ",arr[i]);
+    printf("\n");
+}
+
+
+
