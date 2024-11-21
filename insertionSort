@@ -1,0 +1,73 @@
+/*
+一.插入排序的核心逻辑
+    插入排序通过每次将当前元素插入到已排序部分的正确位置，逐步构建有序数组。
+二.时间复杂度
+    1.最坏情况:n^2(每次插入都需要移动所有已排序部分的元素)
+    2.最好情况:n(每次插入时，不需要移动元素，只需比较一次)
+    3.平均情况:n^2
+三.空间复杂度
+    1.空间复杂度为常数级(1)
+    原因:插入排序是原地排序算法，不需要额外的存储空间。
+四.优点：
+    1.简单易实现：代码逻辑清晰，适合学习排序算法的初学者。
+    2.稳定性好：插入排序是稳定排序，相同元素的相对位置不会改变。
+    3.适合小规模数据：当数据量较小时，插入排序性能较好。
+    4.适合部分有序数据：如果数据接近有序，插入排序效率较高。
+五.缺点：
+    1.效率较低：对于大规模数据，插入排序性能不如高级排序算法（如快速排序、归并排序等）。
+*/
+#include <stdio.h>
+
+void insertionSort(int arr[], int n);
+void printArray(int arr[], int n);
+
+int main()
+{
+    int arr[] = { 5,4,6,1,2,7,3,9,8 };
+    int arrLen = sizeof(arr) / sizeof(arr[0]);
+
+    printf("排序前的数组:\n");
+    printArr(arr, arrLen);
+
+    insertionSort(arr, arrLen);
+
+    printf("排序后的数组:\n");
+    printArr(arr, arrLen);
+
+    return 0;
+}
+
+void insertionSort(int arr[], int n)
+{
+    int i, j;
+    for(i = 1; i < n; i++)//在前面留一个数,把它当作已有序数
+    {
+        int key = arr[i];// 当前要插入的元素
+        j = i - 1;
+        while(j >= 0 && arr[j] < key)// 将比 key 大的元素向右移动
+        {
+            arr[j + 1] = arr[j];
+            j--;//从右往左遍历
+        }
+        arr[j + 1] = key;// 插入 key 到正确的位置
+    }
+}
+void printArr(int arr[], int n)
+{
+    int i;
+    for(i = 0; i < n; i++)
+        printf("%d ",arr[i]);
+    printf("\n");
+}
+
+
+
+
+
+
+
+
+
+
+
+
