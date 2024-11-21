@@ -1,28 +1,42 @@
 /*
-这个选择排序法是最好上手的排序法.
-在数据比较小的时候可以去使用它,但是一旦数据变得很庞大就不可以去使用了,因为它永远都要遍历n^2遍.
-最坏时间复杂度:n^2
-最好时间复杂度:n^2
-平均时间复杂度:n^2
-空间复杂度:1(常数级)
-不稳定:相同的数可能会调换
+一.时间复杂度
+    1.最坏情况:n^2(每轮都需要遍历未排序部分)
+    2.最好情况:n^2(即使数组已排序，也需要遍历寻找最小值)
+    3.平均情况:n^2
+二.空间复杂度
+    1.空间复杂度为常数级(1)
+    原因:不需要额外的数组，只在原数组上进行操作。
+三.优点：
+    1.实现简单，适合初学者学习排序算法。
+    2.对于小规模数据或部分有序的数据表现尚可。
+    3.不依赖数据的初始顺序，性能与输入数据无关。
+四.缺点：
+    1.对于大规模数据，效率较低，时间复杂度高。
+    2.不适合对性能要求高的场景。
+    3.不稳定,选择排序可能打破相等元素的相对顺序
 */
 #include <stdio.h>
 
-void selectionSort(int* arr, int n);//选择排序函数
-void printArr(int* arr, int n);//输出
+void selectionSort(int arr[], int n);//选择排序函数
+void printArr(int arr[], int n);//输出
 
 int main()
 {
     int arr[] = { 5,4,6,1,2,7,3,9,8 };
     int arrLen = sizeof(arr) / sizeof(arr[0]);
+
+    printf("排序前的数组:\n");
     printArr(arr, arrLen);
+
     selectionSort(arr, arrLen);
+
+    printf("排序后的数组:\n");
     printArr(arr, arrLen);
+
     return 0;
 }
 
-void selectionSort(int* arr, int n)
+void selectionSort(int arr[], int n)
 {
     int i, j;//数组指针
     for (i = 0; i < n; i++)
@@ -41,11 +55,11 @@ void selectionSort(int* arr, int n)
     }
 }
 
-void printArr(int* arr, int n)
+void printArr(int arr[], int n)
 {
     int i;
     for (i = 0; i < n; i++)
-        printf("%d", arr[i]);
+        printf("%d ", arr[i]);
     printf("\n");
 }
 
