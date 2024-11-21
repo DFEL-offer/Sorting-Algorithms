@@ -1,0 +1,58 @@
+/*
+这个选择排序法是最好上手的排序法.
+在数据比较小的时候可以去使用它,但是一旦数据变得很庞大就不可以去使用了,因为它永远都要遍历n^2遍.
+最坏时间复杂度:n^2
+最好时间复杂度:n^2
+平均时间复杂度:n^2
+空间复杂度:1(常数级)
+不稳定:相同的数可能会调换
+*/
+#include <stdio.h>
+
+void selectionSort(int* arr, int n);//选择排序函数
+void printArr(int* arr, int n);//输出
+
+int main()
+{
+    int arr[] = { 5,4,6,1,2,7,3,9,8 };
+    int arrLen = sizeof(arr) / sizeof(arr[0]);
+    printArr(arr, arrLen);
+    selectionSort(arr, arrLen);
+    printArr(arr, arrLen);
+    return 0;
+}
+
+void selectionSort(int* arr, int n)
+{
+    int i, j;//数组指针
+    for (i = 0; i < n; i++)
+    {
+        int min = i;//保存最小值
+        for (j = i + 1; j < n; j++)
+        {
+            if (arr[min] > arr[j])//这里如果是小于号'<'就是从大到小排序
+                min = j;
+        }
+        if (i != min) {//发现最小值变了,将遍历后的最小值跟i调换
+            int tmp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = tmp;
+        }
+    }
+}
+
+void printArr(int* arr, int n)
+{
+    int i;
+    for (i = 0; i < n; i++)
+        printf("%d", arr[i]);
+    printf("\n");
+}
+
+
+
+
+
+
+
+
