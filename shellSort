@@ -1,0 +1,66 @@
+/*
+一.希尔排序的核心逻辑
+    1.希尔排序是基于插入排序的一种改进算法。
+    2.它通过引入一个步长（gap），将数组分组进行排序，从而逐渐减少逆序对，提升效率。
+    4.随着步长逐渐减小，最后步长为1时，整个数组已基本有序，再进行一次插入排序即可。
+二.时间复杂度
+    1.最坏情况
+        (1)n^2(使用希尔原始的  gap = n/2 递减序列)
+        (2)n^(3/2),(更高效的Hibbard序列)
+        (3)n(logn)^2,(更高效的Sedgewick序列)
+    2.最好情况:n(如果数据已经接近有序)
+    3.平均情况:n^1.5(比较次数和最坏情况类似，但交换次数较少)
+三.空间复杂度
+    1.空间复杂度为常数级(1)
+    原因:希尔排序是原地排序算法，不需要额外的存储空间。
+四.优点：
+    1.实现简单，适合初学者学习排序算法。
+    2.对于小规模数据或部分有序的数据表现尚可。
+    3.稳定排序算法（相等的元素不会交换位置）。
+五.缺点：
+    1.对于大规模数据，效率较低，时间复杂度高。
+    2.不适合对性能要求高的场景。
+*/
+#include <stdio.h>
+
+void shellSort(int arr[], int n);//希尔排序
+void printArr(int arr[], int n);//输出数组
+
+int main()
+{
+	int arr[] = { 4,6,2,9,7,1,3,8,0,5 };
+	int arrLen = sizeof(arr) / sizeof(arr[0]);
+
+	printf("排序前的数组为:\n");
+	printArr(arr, arrLen);
+
+	shellSort(arr, arrLen);
+
+	printf("排序后的数组为:\n");
+	printArr(arr, arrLen);
+	return 0;
+}
+
+void shellSort(int arr[], int n)
+{
+	for (int gap = n / 2; gap > 0; gap /= 2)//给数组分组,然后使用插入排序,gap每次减半
+	{
+		for (int i = gap; i < n; i++)//每组数据使用插入排序
+		{
+			int key = arr[i];//初始化要插入的元素
+			int j = i;
+			while (j >= i && arr[j - gap] > key)//跟插入排序一样,就是隔gap一排序
+			{
+				arr[j] = arr[j - gap];
+				j -= gap;
+			}
+			arr[j] = key;
+		}
+	}
+}
+void printArr(int arr[], int n)
+{
+	for (int i = 0; i < n; i++)
+		printf("%d ", arr[i]);
+	printf("\n");
+}
